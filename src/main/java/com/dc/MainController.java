@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.animation.RotateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,7 +40,28 @@ public class MainController implements Initializable
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        
+        betTextField.textProperty().addListener(new ChangeListener<String>(){
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+            {
+                if(!newValue.matches("\\d*"))
+                {
+                    betTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                
+                if(!(newValue.isBlank() || newValue.isEmpty()))
+                {
+                    if(Integer.parseInt(newValue) > 12)
+                        betTextField.setText("12");
+                    
+                    if(Integer.parseInt(newValue) < 2)
+                        betTextField.setText("2");
+                }
+
+            }
+
+        });
         
     }
 
