@@ -30,17 +30,15 @@ public class MainController implements Initializable
     @FXML
     private Button rollBtn;
 
-    private int totalDiceFaceVal;
     private Random rand = new Random();
 
-    
-    
-    public void setTotalDiceFaceVal(int totalDiceFaceVal)
-    {
-        this.totalDiceFaceVal = totalDiceFaceVal;
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        
+        
     }
 
-    int rollDices(ImageView dieImageView)
+    int rollDie(ImageView dieImageView)
     {
         RotateTransition rotateTransition = new RotateTransition();
         rotateTransition.setByAngle(360);
@@ -52,8 +50,10 @@ public class MainController implements Initializable
 
         rotateTransition.setOnFinished(i -> {
             Image dieImage = new Image(getClass().getResourceAsStream("images/" + "dice-six-faces-" + randomDieFaceVal + ".png"));
-            dieImageView2.setImage(dieImage);
+            dieImageView.setImage(dieImage);
         });
+
+        
 
         return randomDieFaceVal;
     }
@@ -62,7 +62,13 @@ public class MainController implements Initializable
     void roll(ActionEvent event) throws InterruptedException 
     {
         rollBtn.setDisable(true);
-        
+        int dieVal1 = rollDie(dieImageView1);
+        int dieVal2 = rollDie(dieImageView2);
+
+        System.out.println(dieVal1);
+        System.out.println(dieVal2);
+        System.out.println(dieVal1 + dieVal2);
+
         rollBtn.setDisable(false);
 
        
@@ -70,9 +76,5 @@ public class MainController implements Initializable
         
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO Auto-generated method stub
-        
-    }
+    
 }
