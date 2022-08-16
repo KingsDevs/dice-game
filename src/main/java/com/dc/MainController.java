@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,6 +30,9 @@ public class MainController implements Initializable
 
     @FXML
     private Button rollBtn;
+
+    @FXML
+    private Label promptText;
 
     private Random rand = new Random();
 
@@ -62,12 +66,30 @@ public class MainController implements Initializable
     void roll(ActionEvent event) throws InterruptedException 
     {
         rollBtn.setDisable(true);
-        int dieVal1 = rollDie(dieImageView1);
-        int dieVal2 = rollDie(dieImageView2);
+        int bet;
 
-        System.out.println(dieVal1);
-        System.out.println(dieVal2);
-        System.out.println(dieVal1 + dieVal2);
+        if(!betTextField.getText().isEmpty())
+        {
+            bet = Integer.parseInt(betTextField.getText());
+
+            int dieVal1 = rollDie(dieImageView1);
+            int dieVal2 = rollDie(dieImageView2);
+
+            if(bet == (dieVal1 + dieVal2))
+            {
+                promptText.setText("You Won!");
+            }
+            else
+            {
+                promptText.setText("You Lost!");
+            }
+        }
+        else
+            promptText.setText("Please Enter Your Bet!");
+
+        // System.out.println(dieVal1);
+        // System.out.println(dieVal2);
+        // System.out.println(dieVal1 + dieVal2);
 
         rollBtn.setDisable(false);
 
