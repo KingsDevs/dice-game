@@ -34,10 +34,9 @@ public class MainController
 
     int rollDice() throws InterruptedException 
     {
-
         Thread rollThread = new Thread() {
-            int dieFaceVal1 = 0;
-            int dieFaceVal2 = 0;
+            private int dieFaceVal1 = 0;
+            private int dieFaceVal2 = 0;
             public void run()
             {
                 for (int i = 0; i < 10; i++) 
@@ -57,7 +56,9 @@ public class MainController
                     }
         
                 }
-            }         
+            }
+            
+           
         };
         
         rollThread.start();
@@ -70,10 +71,18 @@ public class MainController
     void roll(ActionEvent event) throws InterruptedException 
     {
         rollBtn.setDisable(true);
-        int totalValDice = rollDice();
+        
+        RollDice rollDice = new RollDice(dieImageView1, dieImageView2);
+        
+        Thread rollThread = new Thread(rollDice);
+        rollThread.start();
+        rollThread.join();
+        
+        int totalDiceFaceVal = rollDice.getTotalDiceFaceVal(); 
+
         rollBtn.setDisable(false);
 
-    
+        System.out.println(totalDiceFaceVal);
 
         System.out.println(dieImageView1.getImage());
         // System.out.println(dieImageView1.getImage().getUrl().toString());
