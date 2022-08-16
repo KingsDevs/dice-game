@@ -13,17 +13,20 @@ public class RollDice implements Runnable
     private ImageView dieImageView1;
     private ImageView dieImageView2;
 
-    public RollDice(ImageView dieImageView1, ImageView dieImageView2)
+    private MainController mainController;
+
+    public RollDice(ImageView dieImageView1, ImageView dieImageView2, MainController mainController, Class c)
     {
         this.dieImageView1 = dieImageView1;
         this.dieImageView2 = dieImageView2;
+        this.mainController = mainController;
     }
 
     public void run()
     {
         Random rand = new Random();
         
-        for (int i = 0; i < 10; i++) 
+        for (int i = 0; i < 15; i++) 
         {
             try  {
                 dieFaceVal1 = rand.nextInt(6) + 1;
@@ -34,12 +37,14 @@ public class RollDice implements Runnable
                 dieImageView1.setImage(dieImage1);
                 dieImageView2.setImage(dieImage2);
 
-                Thread.sleep(50);
+                Thread.sleep(70);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            
         }
+        
+        mainController.setTotalDiceFaceVal(getTotalDiceFaceVal());
     }
 
     public int getTotalDiceFaceVal()
