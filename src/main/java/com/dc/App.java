@@ -16,6 +16,12 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    public static int diceTotalVal;
+
+    public static void setDiceTotalVal(int total)
+    {
+        diceTotalVal = total;
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -37,7 +43,8 @@ public class App extends Application {
 
     public static Image loadImage(String fileName)
     {
-        File fileImage = new File(App.class.getResource("images/" + fileName).toString());
+        File fileImage = new File("src/resources/com/dc/images/" + fileName);
+        // File fileImage = new File(App.class.getResource("images/" + fileName).toString());
         Image image = new Image(fileImage.toURI().toString());
         
         return image;

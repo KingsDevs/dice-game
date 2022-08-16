@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class MainController implements Initializable
+public class MainController
 {
 
     @FXML
@@ -29,36 +29,41 @@ public class MainController implements Initializable
     @FXML
     private Button rollBtn;
 
-    private ArrayList<Image> dieFacesImages = new ArrayList<Image>();
     private Random rand = new Random();
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) 
-    {
-        for (int i = 1; i <= 6; i++) 
-        {
-            Image dieImageFace = App.loadImage("dice-six-faces-" + i + ".png");
-            dieFacesImages.add(dieImageFace); 
-        }
-    }
 
     int rollDice() throws InterruptedException 
     {
-        int dieFaceVal1 = 0;
-        int dieFaceVal2 = 0;
-        for (int i = 0; i < 10; i++) 
-        {
-            dieFaceVal1 = rand.nextInt(6) + 1;
-            dieFaceVal2 = rand.nextInt(6) + 1;
-            
-            dieImageView1.setImage(dieFacesImages.get(dieFaceVal1 - 1));
-            dieImageView2.setImage(dieFacesImages.get(dieFaceVal2 - 1));
-            
 
-            Thread.sleep(100);
-        }
+        Thread rollThread = new Thread() {
+            int dieFaceVal1 = 0;
+            int dieFaceVal2 = 0;
+            public void run()
+            {
+                for (int i = 0; i < 10; i++) 
+                {
+                    try  {
+                        dieFaceVal1 = rand.nextInt(6) + 1;
+                        dieFaceVal2 = rand.nextInt(6) + 1;
+                    
+                        Image dieImage1 = new Image(getClass().getResourceAsStream("images/" + "dice-six-faces-" + dieFaceVal1 + ".png"));
+                        Image dieImage2 = new Image(getClass().getResourceAsStream("images/" + "dice-six-faces-" + dieFaceVal2 + ".png"));
+                        dieImageView1.setImage(dieImage1);
+                        dieImageView2.setImage(dieImage2);
 
-        return dieFaceVal1 + dieFaceVal2;
+                        Thread.sleep(50);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+        
+                }
+            }         
+        };
+        
+        rollThread.start();
+    
+
+        return 0;
     }
     
     @FXML
@@ -68,7 +73,10 @@ public class MainController implements Initializable
         int totalValDice = rollDice();
         rollBtn.setDisable(false);
 
-        System.out.println(totalValDice);
+    
+
+        System.out.println(dieImageView1.getImage());
+        // System.out.println(dieImageView1.getImage().getUrl().toString());
         
     }
 }
