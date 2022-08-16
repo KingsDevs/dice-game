@@ -50,12 +50,12 @@ public class MainController implements Initializable
                     betTextField.setText(newValue.replaceAll("[^\\d]", ""));
                 }
                 
-                if(!(newValue.isBlank() || newValue.isEmpty()))
+                if(!(betTextField.getText().isBlank() || betTextField.getText().isEmpty()))
                 {
-                    if(Integer.parseInt(newValue) > 12)
+                    if(Integer.parseInt(betTextField.getText()) > 12)
                         betTextField.setText("12");
                     
-                    if(Integer.parseInt(newValue) < 2)
+                    if(Integer.parseInt(betTextField.getText()) < 2)
                         betTextField.setText("2");
                 }
 
