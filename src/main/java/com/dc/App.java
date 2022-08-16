@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -34,9 +35,11 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static File loadImage(String fileName)
+    public static Image loadImage(String fileName)
     {
-        File image = new File(App.class.getResource("images/" + fileName).toString());
+        File fileImage = new File(App.class.getResource("images/" + fileName).toString());
+        Image image = new Image(fileImage.toURI().toString());
+        
         return image;
     }
 
