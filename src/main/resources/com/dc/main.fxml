@@ -8,24 +8,24 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="646.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="646.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dc.MainController">
    <children>
-      <ImageView fitHeight="157.0" fitWidth="163.0" layoutX="137.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dieImageView1" fitHeight="157.0" fitWidth="163.0" layoutX="137.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/dice-six-faces-1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="157.0" fitWidth="163.0" layoutX="351.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dieImageView2" fitHeight="157.0" fitWidth="163.0" layoutX="351.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/dice-six-faces-1.png" />
          </image>
       </ImageView>
-      <Button layoutX="278.0" layoutY="334.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="91.0" text="ROLL">
+      <Button layoutX="278.0" layoutY="334.0" mnemonicParsing="false" onAction="#roll" prefHeight="61.0" prefWidth="91.0" text="ROLL">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField alignment="CENTER" layoutX="255.0" layoutY="278.0" prefHeight="37.0" prefWidth="137.0" promptText="Enter your bet here">
+      <TextField fx:id="betTextField" alignment="CENTER" layoutX="255.0" layoutY="278.0" prefHeight="37.0" prefWidth="137.0" promptText="Enter your bet here">
          <font>
             <Font size="14.0" />
          </font>
