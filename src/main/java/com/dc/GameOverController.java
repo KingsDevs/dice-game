@@ -1,6 +1,7 @@
 package com.dc;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,13 +32,31 @@ public class GameOverController
 
     private MainController mainController;
 
-    public void setMainControllerandMoneyLeft(MainController mainController)
+    private ArrayList<HighScore> highScores;
+
+    public void setMainControllerandMoneyLeft(MainController mainController) throws IOException
     {
         this.mainController = mainController;
         gameResultListView.getItems().addAll(mainController.getBetList());
 
-        moneyLeftLabel.setText("Money Left: " + mainController.getMoney());
+        int moneyLeft = mainController.getMoney();
+
+        moneyLeftLabel.setText("Money Left: " + moneyLeft);
         playerNameLabel.setText("Player Name: " + App.getPlayerName());
+
+        highScores = HighScore.getHighscores();
+        HighScore currentPlayer = new HighScore(App.getPlayerName(), moneyLeft);
+
+        if(highScores == null)
+        {
+            highScores = new ArrayList<HighScore>();
+            highScores.add(currentPlayer);
+        }
+        else
+            highScores.add(currentPlayer);
+        
+        HighScore.setHighScores(highScores);
+         
     }
 
     @FXML

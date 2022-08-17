@@ -66,8 +66,12 @@ public class HighScore implements Comparable<HighScore>
         Collections.sort(highScores, Collections.reverseOrder());
 
         FileWriter fileWriter = new FileWriter(getHighscorePath());
-        
-        for(int i = 0; i < highScores.size(); i++)
+
+        int limit = 3;
+        if(highScores.size() < 3)
+            limit = highScores.size();
+
+        for(int i = 0; i < limit; i++)
             fileWriter.write(highScores.get(i).getPlayerName() + "," + highScores.get(i).getMoneyLeft());
 
         fileWriter.close();
