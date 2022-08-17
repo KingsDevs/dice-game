@@ -135,6 +135,9 @@ public class MainController implements Initializable
         rollBtn.setDisable(true);
         int bet;
 
+        setNumberOfBets(numberOfBets - 1);
+        setMoney(money - 1);
+
         if(!betTextField.getText().isEmpty())
         {
             bet = Integer.parseInt(betTextField.getText());
@@ -142,10 +145,25 @@ public class MainController implements Initializable
             int dieVal1 = rollDie(dieImageView1);
             int dieVal2 = rollDie(dieImageView2);
 
-            if(bet == (dieVal1 + dieVal2))
+            int diceTotalVal = dieVal1 + dieVal2;
+
+            if(bet == diceTotalVal)
             {
-                promptText.setText("You Won!");
+                promptText.setText("You Won! You Earned +5 Money");
                 promptText.setTextFill(Color.GREEN);
+                setMoney(money + 5);
+            }
+            else if(bet > diceTotalVal && underRadio.isSelected())
+            {
+                promptText.setText("Your Bet is Over "+ diceTotalVal +"! You Earned +2 Money");
+                promptText.setTextFill(Color.YELLOW);
+                setMoney(money + 2);
+            }
+            else if(bet < diceTotalVal && underRadio.isSelected())
+            {
+                promptText.setText("Your Bet is Under "+ diceTotalVal +"! You Earned +2 Money");
+                promptText.setTextFill(Color.YELLOW);
+                setMoney(money + 2);
             }
             else
             {
@@ -163,11 +181,14 @@ public class MainController implements Initializable
         // System.out.println(dieVal2);
         // System.out.println(dieVal1 + dieVal2);
 
-        rollBtn.setDisable(false);
-
-       
-        
-        
+        if(numberOfBets > 0 && money > 0)
+            rollBtn.setDisable(false);
+        else
+        {
+            promptText.setText("The Game is Over!");
+            promptText.setTextFill(Color.RED);
+        }
+   
     }
 
     
