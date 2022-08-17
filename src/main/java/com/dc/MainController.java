@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class MainController implements Initializable
@@ -101,14 +102,19 @@ public class MainController implements Initializable
             if(bet == (dieVal1 + dieVal2))
             {
                 promptText.setText("You Won!");
+                promptText.setTextFill(Color.GREEN);
             }
             else
             {
                 promptText.setText("You Lost!");
+                promptText.setTextFill(Color.RED);
             }
         }
         else
+        {
             promptText.setText("Please Enter Your Bet!");
+            promptText.setTextFill(Color.RED);
+        }
 
         // System.out.println(dieVal1);
         // System.out.println(dieVal2);

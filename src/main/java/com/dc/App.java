@@ -16,12 +16,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
-    public static int diceTotalVal;
 
-    public static void setDiceTotalVal(int total)
-    {
-        diceTotalVal = total;
-    }
 
     @Override
     public void start(Stage stage) throws IOException {
