@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -48,10 +49,27 @@ public class MainController implements Initializable
     @FXML
     private ToggleGroup underover;
 
+    @FXML
+    private Label bankLabel;
+
+    @FXML
+    private Label numberOfBetsLabel;
+
+    @FXML
+    private Spinner<Integer> betAmountSpinner;
+
     private Random rand = new Random();
+
+    private int numberOfBets;
+    private int money;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+
+
+        setNumberOfBets(5);
+        setMoney(3);
+
         betTextField.textProperty().addListener(new ChangeListener<String>(){
 
             @Override
@@ -77,6 +95,18 @@ public class MainController implements Initializable
 
         });
         
+    }
+
+    private void setNumberOfBets(int numberOfBets)
+    {
+        this.numberOfBets = numberOfBets;
+        numberOfBetsLabel.setText("Number of Bets Left: " + numberOfBets);
+    }
+
+    private void setMoney(int money)
+    {
+        this.money = money;
+        bankLabel.setText("Bank: " + money);
     }
 
     int rollDie(ImageView dieImageView)
