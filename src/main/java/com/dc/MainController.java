@@ -161,11 +161,12 @@ public class MainController implements Initializable
         rollBtn.setDisable(true);
         int bet;
 
-        setNumberOfBets(numberOfBets - 1);
-        setMoney(money - 1);
-
+        
         if(!betTextField.getText().isEmpty())
         {
+            setNumberOfBets(numberOfBets - 1);
+            setMoney(money - 1);
+            
             bet = Integer.parseInt(betTextField.getText());
 
             int dieVal1 = rollDie(dieImageView1);
