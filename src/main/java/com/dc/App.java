@@ -19,7 +19,7 @@ import java.net.URL;
 public class App extends Application {
 
     private static Scene scene;
-    private static String playerName;
+    private static String playerName = "No name";
 
     public static String getPlayerName()
     {
