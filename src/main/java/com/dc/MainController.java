@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -101,7 +102,9 @@ public class MainController implements Initializable
             }
 
         });
-        
+
+        SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
+        betAmountSpinner.setValueFactory(spinnerValueFactory);
     }
 
     private void setNumberOfBets(int numberOfBets)
@@ -119,6 +122,11 @@ public class MainController implements Initializable
     public ArrayList<Bet> getBetList()
     {
         return betList;
+    }
+    
+    public Integer getMoney()
+    {
+        return money;
     }
 
     private int rollDie(ImageView dieImageView)
@@ -147,7 +155,7 @@ public class MainController implements Initializable
         Parent root = loader.load();
 
         GameOverController gameOverController = loader.getController();
-        gameOverController.setMainController(this);
+        gameOverController.setMainControllerandMoneyLeft(this);
         
         Thread.sleep(800);
         App.createModal(root, rollBtn.getScene().getWindow(), "Game Over");
@@ -166,7 +174,7 @@ public class MainController implements Initializable
         {
             setNumberOfBets(numberOfBets - 1);
             setMoney(money - 1);
-            
+
             bet = Integer.parseInt(betTextField.getText());
 
             int dieVal1 = rollDie(dieImageView1);

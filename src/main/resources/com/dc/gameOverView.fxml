@@ -22,7 +22,8 @@
       <ListView fx:id="gameResultListView" layoutX="12.0" layoutY="89.0" prefHeight="272.0" prefWidth="331.0" />
       <Label fx:id="playerNameLabel" layoutX="14.0" layoutY="66.0" text="Player Name: " />
       <Button fx:id="viewHighScoreBtn" layoutX="240.0" layoutY="62.0" mnemonicParsing="false" onAction="#viewHighScore" prefHeight="8.0" prefWidth="103.0" text="View High Score" />
-      <Button layoutX="14.0" layoutY="373.0" mnemonicParsing="false" onAction="#retry" text="Retry" />
-      <Button layoutX="304.0" layoutY="373.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
+      <Button layoutX="14.0" layoutY="386.0" mnemonicParsing="false" onAction="#retry" text="Retry" />
+      <Button layoutX="302.0" layoutY="386.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
+      <Label fx:id="moneyLeftLabel" layoutX="219.0" layoutY="361.0" text="Money Left:" />
    </children>
 </AnchorPane>

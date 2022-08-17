@@ -26,12 +26,17 @@ public class GameOverController
     @FXML
     private AnchorPane anchorPane;
 
+    @FXML
+    private Label moneyLeftLabel;
+
     private MainController mainController;
 
-    public void setMainController(MainController mainController)
+    public void setMainControllerandMoneyLeft(MainController mainController)
     {
         this.mainController = mainController;
         gameResultListView.getItems().addAll(mainController.getBetList());
+        
+        moneyLeftLabel.setText("Money Left: " + mainController.getMoney());
     }
 
     @FXML
