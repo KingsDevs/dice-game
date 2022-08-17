@@ -13,7 +13,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -36,6 +38,15 @@ public class MainController implements Initializable
 
     @FXML
     private Label promptText;
+
+    @FXML
+    private RadioButton overRadio;
+
+    @FXML
+    private RadioButton underRadio;
+
+    @FXML
+    private ToggleGroup underover;
 
     private Random rand = new Random();
 
