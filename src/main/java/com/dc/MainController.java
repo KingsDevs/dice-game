@@ -1,6 +1,7 @@
 package com.dc;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -10,7 +11,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -109,7 +112,7 @@ public class MainController implements Initializable
         bankLabel.setText("Bank: " + money);
     }
 
-    int rollDie(ImageView dieImageView)
+    private int rollDie(ImageView dieImageView)
     {
         RotateTransition rotateTransition = new RotateTransition();
         rotateTransition.setByAngle(360);
@@ -128,9 +131,18 @@ public class MainController implements Initializable
 
         return randomDieFaceVal;
     }
+
+    private void gameOver() throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(App.loadFXMLloader("gameOverView"));
+        Parent root = loader.load();
+        
+        App.createModal(root, rollBtn.getScene().getWindow(), "Game Over");
+
+    }
     
     @FXML
-    void roll(ActionEvent event) throws InterruptedException 
+    void roll(ActionEvent event) throws InterruptedException, IOException 
     {
         rollBtn.setDisable(true);
         int bet;
@@ -185,8 +197,7 @@ public class MainController implements Initializable
             rollBtn.setDisable(false);
         else
         {
-            promptText.setText("The Game is Over!");
-            promptText.setTextFill(Color.RED);
+            gameOver();
         }
    
     }

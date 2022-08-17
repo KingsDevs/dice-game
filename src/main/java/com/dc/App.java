@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * JavaFX App
@@ -50,6 +53,12 @@ public class App extends Application {
         stage.show();
     }
 
+    public static URL loadFXMLloader(String fxmlName)
+    {
+        URL fileUrl = App.class.getResource(fxmlName + ".fxml");
+        return fileUrl;
+        
+    }
 
     public static void main(String[] args) {
         launch();
