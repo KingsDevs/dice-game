@@ -36,15 +36,6 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static Image loadImage(String fileName)
-    {
-        File fileImage = new File("src/resources/com/dc/images/" + fileName);
-        // File fileImage = new File(App.class.getResource("images/" + fileName).toString());
-        Image image = new Image(fileImage.toURI().toString());
-        
-        return image;
-    }
-
     public static void main(String[] args) {
         launch();
     }
