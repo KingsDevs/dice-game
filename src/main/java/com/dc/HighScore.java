@@ -1,9 +1,12 @@
 package com.dc;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -65,16 +68,23 @@ public class HighScore implements Comparable<HighScore>
     {
         Collections.sort(highScores, Collections.reverseOrder());
 
-        FileWriter fileWriter = new FileWriter(getHighscorePath());
+        File highScoreFile = new File(HighScore.getHighscorePath());
+        FileOutputStream fileOutputStream = new FileOutputStream(highScoreFile);
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
 
         int limit = 3;
         if(highScores.size() < 3)
             limit = highScores.size();
 
         for(int i = 0; i < limit; i++)
-            fileWriter.write(highScores.get(i).getPlayerName() + "," + highScores.get(i).getMoneyLeft());
+        {
+            bufferedWriter.write(highScores.get(i).getPlayerName() + "," + highScores.get(i).getMoneyLeft());
+            if (i < (limit - 1))
+                bufferedWriter.newLine();
+                
+        }
 
-        fileWriter.close();
+        bufferedWriter.close();
     }
 
     @Override

@@ -229,8 +229,7 @@ public class MainController implements Initializable
 
             betList.add(new Bet(bet, uo, diceTotalVal, won));
 
-            SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
-            betAmountSpinner.setValueFactory(spinnerValueFactory);
+            
         }
         else
         {
@@ -243,7 +242,11 @@ public class MainController implements Initializable
         // System.out.println(dieVal1 + dieVal2);
 
         if(numberOfBets > 0 && money > 0)
+        {
             rollBtn.setDisable(false);
+            SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
+            betAmountSpinner.setValueFactory(spinnerValueFactory);
+        }
         else
         {
             gameOver();
