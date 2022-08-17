@@ -105,6 +105,7 @@ public class MainController implements Initializable
 
         SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
         betAmountSpinner.setValueFactory(spinnerValueFactory);
+        
     }
 
     private void setNumberOfBets(int numberOfBets)
@@ -172,8 +173,10 @@ public class MainController implements Initializable
         
         if(!betTextField.getText().isEmpty())
         {
+            int betMoney = betAmountSpinner.getValue();
+
             setNumberOfBets(numberOfBets - 1);
-            setMoney(money - 1);
+            setMoney(money - betMoney);
 
             bet = Integer.parseInt(betTextField.getText());
 
@@ -184,26 +187,37 @@ public class MainController implements Initializable
             boolean won = true;
             String uo = "Over";
 
+            int moneyWon = 0;
+
             if(underRadio.isSelected())
                 uo = "Under";
 
             if(bet == diceTotalVal)
             {
-                promptText.setText("You Won! You Earned +5 Money");
+                moneyWon = (money + 5) * betMoney;
+                
+                promptText.setText("You Won! You Earned +"+ moneyWon +" Money");
                 promptText.setTextFill(Color.GREEN);
-                setMoney(money + 5);
+                
+                setMoney(moneyWon);
             }
             else if(bet > diceTotalVal && underRadio.isSelected())
             {
-                promptText.setText("The Dice Rolls Under "+ bet +"! You Earned +2 Money");
+                moneyWon = (money + 2) * betMoney;
+                
+                promptText.setText("The Dice Rolls Under "+ bet +"! You Earned +" + moneyWon + " Money");
                 promptText.setTextFill(Color.GREEN);
-                setMoney(money + 2);
+                
+                setMoney(moneyWon);
             }
             else if(bet < diceTotalVal && overRadio.isSelected())
             {
-                promptText.setText("The Dice Rolls Over "+ bet +"! You Earned +2 Money");
+                moneyWon = (money + 2) * betMoney;
+                
+                promptText.setText("The Dice Rolls Over "+ bet +"! You Earned +" + moneyWon + " Money");
                 promptText.setTextFill(Color.GREEN);
-                setMoney(money + 2);
+                
+                setMoney(moneyWon);
             }
             else
             {
@@ -213,6 +227,9 @@ public class MainController implements Initializable
             }
 
             betList.add(new Bet(bet, uo, diceTotalVal, won));
+
+            SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
+            betAmountSpinner.setValueFactory(spinnerValueFactory);
         }
         else
         {
