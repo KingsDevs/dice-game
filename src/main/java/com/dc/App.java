@@ -19,15 +19,29 @@ import java.net.URL;
 public class App extends Application {
 
     private static Scene scene;
+    private static String playerName;
 
+    public static String getPlayerName()
+    {
+        return playerName;
+    }
+
+    public static void setPlayerName(String _playerName)
+    {
+        playerName = _playerName;
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("enterName"));
+        scene = new Scene(loadFXML("main"));
         stage.setScene(scene);
-        stage.setTitle("Enter Name");
+        stage.setTitle("Dice Game Under Over");
         stage.setResizable(false);
         stage.show();
+
+        FXMLLoader loader = new FXMLLoader(App.loadFXMLloader("enterName"));
+        Parent root = loader.load();
+        createModal(root, stage, "Enter Name");
     }
 
     static void setRoot(String fxml) throws IOException {
