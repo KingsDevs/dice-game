@@ -176,7 +176,6 @@ public class MainController implements Initializable
         if(!betTextField.getText().isEmpty())
         {
             int betMoney = betAmountSpinner.getValue();
-
             setNumberOfBets(numberOfBets - 1);
             setMoney(money - betMoney);
 
@@ -196,30 +195,30 @@ public class MainController implements Initializable
 
             if(bet == diceTotalVal)
             {
-                moneyWon = (money + 5) * betMoney;
+                moneyWon = 5 * betMoney;
                 
                 promptText.setText("You Won! You Earned +"+ moneyWon +" Money");
                 promptText.setTextFill(Color.GREEN);
                 
-                setMoney(moneyWon);
+                setMoney(moneyWon + money);
             }
             else if(bet > diceTotalVal && underRadio.isSelected())
             {
-                moneyWon = (money + 2) * betMoney;
+                moneyWon = 2 * betMoney;
                 
                 promptText.setText("The Dice Rolls Under "+ bet +"! You Earned +" + moneyWon + " Money");
                 promptText.setTextFill(Color.GREEN);
                 
-                setMoney(moneyWon);
+                setMoney(moneyWon + money);
             }
             else if(bet < diceTotalVal && overRadio.isSelected())
             {
-                moneyWon = (money + 2) * betMoney;
+                moneyWon = 2 * betMoney;
                 
                 promptText.setText("The Dice Rolls Over "+ bet +"! You Earned +" + moneyWon + " Money");
                 promptText.setTextFill(Color.GREEN);
                 
-                setMoney(moneyWon);
+                setMoney(moneyWon + money);
             }
             else
             {

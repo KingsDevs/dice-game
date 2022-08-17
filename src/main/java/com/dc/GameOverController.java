@@ -35,8 +35,9 @@ public class GameOverController
     {
         this.mainController = mainController;
         gameResultListView.getItems().addAll(mainController.getBetList());
-        
+
         moneyLeftLabel.setText("Money Left: " + mainController.getMoney());
+        playerNameLabel.setText("Player Name: " + App.getPlayerName());
     }
 
     @FXML
