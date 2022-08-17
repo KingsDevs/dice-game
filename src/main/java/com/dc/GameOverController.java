@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -72,8 +74,15 @@ public class GameOverController
     }
 
     @FXML
-    void viewHighScore(ActionEvent event) {
+    void viewHighScore(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(App.loadFXMLloader("highScoreView"));
+        Parent root = loader.load();
 
+        HighScoreController highScoreController = loader.getController();
+        highScoreController.updateHighScoreListView();
+
+        App.createModal(root, viewHighScoreBtn.getScene().getWindow(), "High Scores");
     }
 
 }
