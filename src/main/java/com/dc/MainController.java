@@ -73,6 +73,8 @@ public class MainController implements Initializable
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
+        
+
         betList.clear();
 
         setNumberOfBets(5);

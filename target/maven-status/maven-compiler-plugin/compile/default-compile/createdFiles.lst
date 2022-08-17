@@ -2,5 +2,6 @@ com\dc\App.class
 com\dc\Bet.class
 com\dc\GameOverController.class
 com\dc\MainController.class
+com\dc\EnterNameController.class
 module-info.class
 com\dc\MainController$1.class

@@ -23,9 +23,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("main"));
+        scene = new Scene(loadFXML("enterName"));
         stage.setScene(scene);
-        stage.setTitle("Dice Game");
+        stage.setTitle("Enter Name");
         stage.setResizable(false);
         stage.show();
     }
