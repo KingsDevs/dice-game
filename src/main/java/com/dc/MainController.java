@@ -156,13 +156,13 @@ public class MainController implements Initializable
             else if(bet > diceTotalVal && underRadio.isSelected())
             {
                 promptText.setText("The Dice Rolls Under "+ bet +"! You Earned +2 Money");
-                promptText.setTextFill(Color.ORANGE);
+                promptText.setTextFill(Color.GREEN);
                 setMoney(money + 2);
             }
             else if(bet < diceTotalVal && overRadio.isSelected())
             {
                 promptText.setText("The Dice Rolls Over "+ bet +"! You Earned +2 Money");
-                promptText.setTextFill(Color.ORANGE);
+                promptText.setTextFill(Color.GREEN);
                 setMoney(money + 2);
             }
             else
