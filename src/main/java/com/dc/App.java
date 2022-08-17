@@ -36,6 +36,21 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
+    public static void createModal(Parent root, Window window, String title)
+    {
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.setResizable(false);
+
+        Scene sc = new Scene(root);
+        stage.setScene(sc);
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(window);
+        stage.show();
+    }
+
+
     public static void main(String[] args) {
         launch();
     }
