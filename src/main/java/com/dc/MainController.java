@@ -64,11 +64,13 @@ public class MainController implements Initializable
                 
                 if(!(betTextField.getText().isBlank() || betTextField.getText().isEmpty()))
                 {
-                    if(Integer.parseInt(betTextField.getText()) > 12)
-                        betTextField.setText("12");
-                    
-                    if(Integer.parseInt(betTextField.getText()) < 2)
-                        betTextField.setText("2");
+                    int bet = Integer.parseInt(betTextField.getText());
+                    if( bet > 12)
+                    {
+                        betTextField.setText(oldValue);
+                        promptText.setText("Input bet in range 2 - 12 only!");
+                        promptText.setTextFill(Color.RED);
+                    } 
                 }
 
             }
