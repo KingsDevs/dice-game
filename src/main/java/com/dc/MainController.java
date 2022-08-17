@@ -3,6 +3,7 @@ package com.dc;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -66,9 +67,12 @@ public class MainController implements Initializable
     private int numberOfBets;
     private int money;
 
+    private ArrayList<Bet> betList = new ArrayList<Bet>();
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
+        betList.clear();
 
         setNumberOfBets(5);
         setMoney(3);
@@ -112,6 +116,11 @@ public class MainController implements Initializable
         bankLabel.setText("Bank: " + money);
     }
 
+    public ArrayList<Bet> getBetList()
+    {
+        return betList;
+    }
+
     private int rollDie(ImageView dieImageView)
     {
         RotateTransition rotateTransition = new RotateTransition();
@@ -132,17 +141,22 @@ public class MainController implements Initializable
         return randomDieFaceVal;
     }
 
-    private void gameOver() throws IOException
+    private void gameOver() throws IOException, InterruptedException
     {
         FXMLLoader loader = new FXMLLoader(App.loadFXMLloader("gameOverView"));
         Parent root = loader.load();
+
+        GameOverController gameOverController = loader.getController();
+        gameOverController.setMainController(this);
         
+        Thread.sleep(800);
         App.createModal(root, rollBtn.getScene().getWindow(), "Game Over");
+        
 
     }
     
     @FXML
-    void roll(ActionEvent event) throws InterruptedException, IOException 
+    void roll(ActionEvent event) throws IOException, InterruptedException
     {
         rollBtn.setDisable(true);
         int bet;
@@ -158,6 +172,11 @@ public class MainController implements Initializable
             int dieVal2 = rollDie(dieImageView2);
 
             int diceTotalVal = dieVal1 + dieVal2;
+            boolean won = true;
+            String uo = "Over";
+
+            if(underRadio.isSelected())
+                uo = "Under";
 
             if(bet == diceTotalVal)
             {
@@ -181,7 +200,10 @@ public class MainController implements Initializable
             {
                 promptText.setText("You Lost!");
                 promptText.setTextFill(Color.RED);
+                won = false;
             }
+
+            betList.add(new Bet(bet, uo, diceTotalVal, won));
         }
         else
         {
