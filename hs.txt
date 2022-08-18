@@ -1,3 +1,0 @@
-Dave,15
-John,15
-Karl,13
