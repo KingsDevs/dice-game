@@ -146,75 +146,83 @@ public class MainController implements Initializable
     void roll(ActionEvent event) throws IOException, InterruptedException
     {
         rollBtn.setDisable(true);
-        int bet = betSpinner.getValue();
+        promptText.setText("");
+        
+        Integer bet = betSpinner.getValue();
+        Integer betMoney = betAmountSpinner.getValue();
 
-        System.out.println(bet);
-       
-        int betMoney = betAmountSpinner.getValue();
-        setNumberOfBets(numberOfBets - 1);
-        setMoney(money - betMoney);
-
-        int dieVal1 = rollDie(dieImageView1);
-        int dieVal2 = rollDie(dieImageView2);
-
-        int diceTotalVal = dieVal1 + dieVal2;
-        boolean won = true;
-        String uo = "Over";
-
-        int moneyWon = 0;
-
-        if(underRadio.isSelected())
-            uo = "Under";
-
-        if(bet == diceTotalVal)
+        if(!(bet == null || betMoney == null))
         {
-            moneyWon = 5 * betMoney;
-            
-            promptText.setText("You Won! You Earned +"+ moneyWon +" Money");
-            promptText.setTextFill(Color.GREEN);
-            
-            setMoney(moneyWon + money);
-        }
-        else if(bet > diceTotalVal && underRadio.isSelected())
-        {
-            moneyWon = 2 * betMoney;
-            
-            promptText.setText("The Dice Rolls Under "+ bet +"! You Earned +" + moneyWon + " Money");
-            promptText.setTextFill(Color.GREEN);
-            
-            setMoney(moneyWon + money);
-        }
-        else if(bet < diceTotalVal && overRadio.isSelected())
-        {
-            moneyWon = 2 * betMoney;
-            
-            promptText.setText("The Dice Rolls Over "+ bet +"! You Earned +" + moneyWon + " Money");
-            promptText.setTextFill(Color.GREEN);
-            
-            setMoney(moneyWon + money);
+            setNumberOfBets(numberOfBets - 1);
+            setMoney(money - betMoney);
+
+            int dieVal1 = rollDie(dieImageView1);
+            int dieVal2 = rollDie(dieImageView2);
+
+            int diceTotalVal = dieVal1 + dieVal2;
+            boolean won = true;
+            String uo = "Over";
+
+            int moneyWon = 0;
+
+            if(underRadio.isSelected())
+                uo = "Under";
+
+            if(bet == diceTotalVal)
+            {
+                moneyWon = 5 * betMoney;
+                
+                promptText.setText("You Won! You Earned +"+ moneyWon +" Money");
+                promptText.setTextFill(Color.GREEN);
+                
+                setMoney(moneyWon + money);
+            }
+            else if(bet > diceTotalVal && underRadio.isSelected())
+            {
+                moneyWon = 2 * betMoney;
+                
+                promptText.setText("The Dice Rolls Under "+ bet +"! You Earned +" + moneyWon + " Money");
+                promptText.setTextFill(Color.GREEN);
+                
+                setMoney(moneyWon + money);
+            }
+            else if(bet < diceTotalVal && overRadio.isSelected())
+            {
+                moneyWon = 2 * betMoney;
+                
+                promptText.setText("The Dice Rolls Over "+ bet +"! You Earned +" + moneyWon + " Money");
+                promptText.setTextFill(Color.GREEN);
+                
+                setMoney(moneyWon + money);
+            }
+            else
+            {
+                promptText.setText("You Lost!");
+                promptText.setTextFill(Color.RED);
+                won = false;
+            }
+
+            betList.add(new Bet(bet, uo, diceTotalVal, won));
+
+
+            if(numberOfBets > 0 && money > 0)
+            {
+                rollBtn.setDisable(false);
+                SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
+                betAmountSpinner.setValueFactory(spinnerValueFactory);
+            }
+            else
+            {
+                gameOver();
+            }
         }
         else
         {
-            promptText.setText("You Lost!");
+            promptText.setText("Invalid input must have a bet and bet amount!");
             promptText.setTextFill(Color.RED);
-            won = false;
-        }
-
-        betList.add(new Bet(bet, uo, diceTotalVal, won));
-
-
-        if(numberOfBets > 0 && money > 0)
-        {
             rollBtn.setDisable(false);
-            SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
-            betAmountSpinner.setValueFactory(spinnerValueFactory);
         }
-        else
-        {
-            gameOver();
-        }
-   
+        
     }
-
     
 }
