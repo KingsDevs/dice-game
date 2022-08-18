@@ -2,6 +2,7 @@ com\dc\HighScoreController.class
 com\dc\App.class
 com\dc\Bet.class
 com\dc\GameOverController.class
+com\dc\Main.class
 com\dc\MainController.class
 com\dc\EnterNameController.class
 module-info.class
