@@ -87,6 +87,13 @@ public class HighScore implements Comparable<HighScore>
         bufferedWriter.close();
     }
 
+    public static void clearHighScores() throws IOException
+    {
+        FileWriter fileWriter = new FileWriter(HighScore.getHighscorePath());
+        fileWriter.write("");
+        fileWriter.close();
+    }
+
     @Override
     public String toString()
     {
