@@ -31,7 +31,7 @@ public class MainController implements Initializable
 {
 
     @FXML
-    private TextField betTextField;
+    private Spinner<Integer> betSpinner;
 
     @FXML
     private ImageView dieImageView1;
@@ -71,42 +71,18 @@ public class MainController implements Initializable
     private ArrayList<Bet> betList = new ArrayList<Bet>();
 
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-
-        
-
+    public void initialize(URL arg0, ResourceBundle arg1) 
+    {
         betList.clear();
 
         setNumberOfBets(5);
         setMoney(3);
 
-        betTextField.textProperty().addListener(new ChangeListener<String>(){
+        SpinnerValueFactory<Integer> betSpinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 12, 2);
+        betSpinner.setValueFactory(betSpinnerValueFactory);
 
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
-            {
-                if(!newValue.matches("\\d*"))
-                {
-                    betTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-                
-                if(!(betTextField.getText().isBlank() || betTextField.getText().isEmpty()))
-                {
-                    int bet = Integer.parseInt(betTextField.getText());
-                    if( bet > 12)
-                    {
-                        betTextField.setText(oldValue);
-                        promptText.setText("Input bet in range 2 - 12 only!");
-                        promptText.setTextFill(Color.RED);
-                    } 
-                }
-
-            }
-
-        });
-
-        SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
-        betAmountSpinner.setValueFactory(spinnerValueFactory);
+        SpinnerValueFactory<Integer> betAmountSpinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, money, 1);
+        betAmountSpinner.setValueFactory(betAmountSpinnerValueFactory);
         
     }
 
@@ -170,76 +146,62 @@ public class MainController implements Initializable
     void roll(ActionEvent event) throws IOException, InterruptedException
     {
         rollBtn.setDisable(true);
-        int bet;
+        int bet = betSpinner.getValue();
 
-        
-        if(!betTextField.getText().isEmpty())
+        System.out.println(bet);
+       
+        int betMoney = betAmountSpinner.getValue();
+        setNumberOfBets(numberOfBets - 1);
+        setMoney(money - betMoney);
+
+        int dieVal1 = rollDie(dieImageView1);
+        int dieVal2 = rollDie(dieImageView2);
+
+        int diceTotalVal = dieVal1 + dieVal2;
+        boolean won = true;
+        String uo = "Over";
+
+        int moneyWon = 0;
+
+        if(underRadio.isSelected())
+            uo = "Under";
+
+        if(bet == diceTotalVal)
         {
-            int betMoney = betAmountSpinner.getValue();
-            setNumberOfBets(numberOfBets - 1);
-            setMoney(money - betMoney);
-
-            bet = Integer.parseInt(betTextField.getText());
-
-            int dieVal1 = rollDie(dieImageView1);
-            int dieVal2 = rollDie(dieImageView2);
-
-            int diceTotalVal = dieVal1 + dieVal2;
-            boolean won = true;
-            String uo = "Over";
-
-            int moneyWon = 0;
-
-            if(underRadio.isSelected())
-                uo = "Under";
-
-            if(bet == diceTotalVal)
-            {
-                moneyWon = 5 * betMoney;
-                
-                promptText.setText("You Won! You Earned +"+ moneyWon +" Money");
-                promptText.setTextFill(Color.GREEN);
-                
-                setMoney(moneyWon + money);
-            }
-            else if(bet > diceTotalVal && underRadio.isSelected())
-            {
-                moneyWon = 2 * betMoney;
-                
-                promptText.setText("The Dice Rolls Under "+ bet +"! You Earned +" + moneyWon + " Money");
-                promptText.setTextFill(Color.GREEN);
-                
-                setMoney(moneyWon + money);
-            }
-            else if(bet < diceTotalVal && overRadio.isSelected())
-            {
-                moneyWon = 2 * betMoney;
-                
-                promptText.setText("The Dice Rolls Over "+ bet +"! You Earned +" + moneyWon + " Money");
-                promptText.setTextFill(Color.GREEN);
-                
-                setMoney(moneyWon + money);
-            }
-            else
-            {
-                promptText.setText("You Lost!");
-                promptText.setTextFill(Color.RED);
-                won = false;
-            }
-
-            betList.add(new Bet(bet, uo, diceTotalVal, won));
-
+            moneyWon = 5 * betMoney;
             
+            promptText.setText("You Won! You Earned +"+ moneyWon +" Money");
+            promptText.setTextFill(Color.GREEN);
+            
+            setMoney(moneyWon + money);
+        }
+        else if(bet > diceTotalVal && underRadio.isSelected())
+        {
+            moneyWon = 2 * betMoney;
+            
+            promptText.setText("The Dice Rolls Under "+ bet +"! You Earned +" + moneyWon + " Money");
+            promptText.setTextFill(Color.GREEN);
+            
+            setMoney(moneyWon + money);
+        }
+        else if(bet < diceTotalVal && overRadio.isSelected())
+        {
+            moneyWon = 2 * betMoney;
+            
+            promptText.setText("The Dice Rolls Over "+ bet +"! You Earned +" + moneyWon + " Money");
+            promptText.setTextFill(Color.GREEN);
+            
+            setMoney(moneyWon + money);
         }
         else
         {
-            promptText.setText("Please Enter Your Bet!");
+            promptText.setText("You Lost!");
             promptText.setTextFill(Color.RED);
+            won = false;
         }
 
-        // System.out.println(dieVal1);
-        // System.out.println(dieVal2);
-        // System.out.println(dieVal1 + dieVal2);
+        betList.add(new Bet(bet, uo, diceTotalVal, won));
+
 
         if(numberOfBets > 0 && money > 0)
         {
